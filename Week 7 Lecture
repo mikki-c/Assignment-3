@@ -1,0 +1,158 @@
+# Week 7 Object Orientated Programming
+''' 
+Class - A blueprint created by a progremmer for an object
+    Class defines a set of attributes that will characterise any object from this class
+    Think of class as a cookie cutter
+    E.g. building a house: plan = class, house = object
+        person = class, individuals = object (attributes - name, gender, etc.)
+
+Object - an instance of a class 
+    the realised version of a class (manifestation in the program)
+    object is the cookies produced from the cookier cutter
+
+    Methods - functions that define behaviours for the object 
+
+# '''
+# Define the class
+class Person: # When defining a class start with an uppercase (convention)
+    def __init__(self, name, age):  # Self used to refer to local variables (defined)
+        # use DOUBLE underscores eitherside of init
+        self.name = name        # name on right hand side is defined by argument
+        self.age = age          # assign value for each iterative in class using self."name/age/etc."
+
+# Class constructor 
+''' def_init_
+- runs automaticlaly when class is initiated
+- stores object state
+- scope is the entire class definition '''
+
+# Create the object
+person1 = Person("Mikaela", 19) # define the object passing the relevant parameters (name & age)
+person2 = Person("Alice", 25)
+print("Name:", person1.name, "Age:", person1.age)
+print(person2.name, person2.age)
+
+# Example; 
+class Car:
+    def __init__(self, brand, model="Unknown", year="unknown"): # Use default value = "unknown" if the model is not defined by the user
+        self.brand = brand
+        self.model = model
+        self.year = year
+        self.running = False # by default engine will not be running initially
+        self.odometer = 0 # new cars odometer reading is 0 for all cars 
+        self.fuelinltr = 30 
+        self.ltrperkm = 0.06
+
+# Method - functionality related to class
+    # When you start the car - the running attribute has to be altered
+    def start(self): 
+        if self.running == False: # Use logical operator to check if car is stationary 
+            self.running = True     # Set car to running
+            print("Starting the car")
+        else:
+            print("is already running")
+
+    def stop(self):
+        if self.running == True:
+            self.running = False 
+            print("Switching off the car")
+        else:
+            print("was already stopped")
+    
+    def driving(self, distance):
+        if self.running == True:
+            self.odometer = self.odometer + distance
+            self.fuelinltr = self.fuelinltr - distance*self.ltrperkm
+            if self.fuelinltr <= 0:
+                print("Refuel car")
+                self.fuelinltr = 0 
+            else: 
+                pass
+        else: 
+            print("Car is stopped")
+
+
+car1 = Car("Toyota", "Rav4", 2020) # Create object
+car1.start() # Call method of function 
+car1.driving(95)
+print(car1.driving) # Call attribute - Execution will be true or false depending on whether car has been started or stopped
+print(car1.fuelinltr)
+
+car1.driving(250)
+print(car1.fuelinltr)
+
+car1 = Car("Toyota","Camry", 1991)
+car2 = Car("Honda", "Civic", 1972)
+car3 = Car("BMW")
+
+print(car1.brand, car1.model, car1.year, "is driving")
+print(car2.brand, car2.model, car2.year, "is driving")
+print(car3.brand, car3.model, car3.year, "is driving")
+
+
+# Modules
+''' See mainfile and mymath for example of modules'''
+
+# Inheritance
+''' Sub classes inherit some or all the properties of the main class'''
+
+class Vehicle: 
+    def __init__(self, brand): # constructor 
+        self.brand = brand 
+
+    def info(self): # method
+        print("This is a vehicle from", self.brand)
+
+class Car(Vehicle): # call super class in brackets
+
+    def __init__(self, brand, model): 
+        super().__init__(brand) # super calls the main Vehicle class & inherited variables (in brackets list all the inherited variables)
+        self.model = model # define new variable in sub class 
+
+car1 = Car("Toyota", "Camry")
+car1.info()
+
+# Encapsulation
+''' Write multiple functions within one class
+    Grouping common things together to form a class '''
+
+# E.g. Vehicles as class - types of cars within it
+
+# Polymorphism
+'''Write same method name with different functionality
+    Inherit methods from superclass and update it with local functionality'''
+
+class Animal: # Super class
+    def speak(self):
+        pass 
+
+class Dog: 
+    def speak(self):
+        print("Woof")
+
+class Cat: 
+    def speak(self):
+        print("Meow")
+
+
+# Method Overriding 
+''' Super class functionality, inherit methods, completely change functionality'''
+
+
+# Exception handling:
+'''
+Pre-defined functions/keywords: 
+ValueError - catches invalid input (integer required)
+ZeroDivisionError - cannot divide by zero 
+
+'''
+
+
+
+
+
+
+
+
+
+
