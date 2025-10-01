@@ -1,0 +1,96 @@
+from tkinter import *
+from tkinter import ttk
+import tkinter.messagebox as msg
+from tkinter import scrolledtext
+
+root = Tk()
+
+root.title("Tkinter AI GUI")
+root.geometry("900x600") 
+root.maxsize(900, 600) # width x height
+
+# Define functions to execute
+def input_text():
+    print("Enter text/image into user input section")
+
+def more_info():
+    print("Bert base AI model for Named Entity Recognition (NER) - categories include location, organisations, person & miscellaneous")
+
+def more_info1():
+    print("Impira LayoutLM AI model for Visual Question Answering")
+
+
+menu = Menu(root)
+root.config(menu = menu)
+
+# Main menu
+root.option_add('*tearOff', False) # gets rid of dashed line at top of cascade menu
+subMenu= Menu(menu)
+menu.add_cascade(label ="File", menu = subMenu)
+subMenu.add_command(label = "New Project", command = input_text)
+subMenu.add_separator( )
+subMenu.add_command(label="Exit", command = input_text)
+
+subMenu1 = Menu(menu)
+menu.add_cascade(label = "Models", menu = subMenu1)
+subMenu1.add_command(label = "Text classification", command = more_info)
+subMenu1.add_command(label = "Visual Question Answering", command = more_info1)
+
+subMenu2 = Menu(menu)
+menu.add_cascade(label = "Help", menu = subMenu2)
+subMenu2.add_command(label = "Find...", command = lambda: root.event_generate("<<OpenFindDialog>>"))
+root.bind("<<OpenFindDialog>>") # check functionality
+
+# Model selection
+select = Label(text = "Model Selection:")
+select.grid(row = 0, column = 1, padx=5, pady=5)
+def run(event): 
+    print("Connect to model function")
+
+# Dropdown options  
+Models = ["Text classification", "Image classification", "Reset"]
+
+cb = ttk.Combobox(root, values= Models)
+cb.set("Select a model")
+cb.grid(row = 0, column = 2, padx = 5, pady=5)
+
+# Load model button
+load = Button(text = "Load model")
+load.grid(row = 0, column = 3, padx= 5, pady=5)
+
+# User input Section
+frame1 = LabelFrame(root, text = "User Input Section", padx = 5, pady =5)
+frame1.grid(row = 1, column = 0, columnspan = 10, rowspan = 10, padx = 5, pady = 5)
+
+t_i = StringVar()
+t_i.set(0)
+type1 = Radiobutton(frame1, text="Text", variable= t_i, value = 'type1')
+type1.grid(row = 2, column = 1, padx = 5, pady=5)
+type2 = Radiobutton(frame1, text="Image", variable= t_i, value = 'type2')
+type2.grid(row = 2, column = 2, padx = 5, pady=5)
+type3 = Button(frame1, text = "Browse").grid(row = 2, column = 3, padx = 5, pady = 5)
+
+text_area = scrolledtext.ScrolledText(frame1, wrap=WORD, width=30, height=6,font=("Times New Roman", 15))
+text_area.grid(row = 3, column = 1, columnspan = 4, padx=10, pady=10)
+
+run1 = Button(frame1, text = "Run Model 1").grid(row = 4, column = 1, padx = 5, pady = 5)
+run2=  Button(frame1, text = "Run Model 2").grid(row = 4, column = 2, padx = 5, pady = 5)
+run3=  Button(frame1, text = "Clear").grid(row = 4, column = 3, padx = 5, pady = 5)
+
+# Model Output Section
+frame2 = LabelFrame(root, text = "Model Output Section", padx = 5, pady = 5)
+frame2.grid(row = 1, column = 11, columnspan = 10, rowspan = 14, padx = 5, pady = 5)
+
+output = Label(frame2, text = "Output Display:")
+output.grid(row = 1, column = 11, sticky = "w")
+text_area1 = scrolledtext.ScrolledText(frame2, wrap=WORD, width=30, height= 8,font=("Times New Roman", 15))
+text_area1.grid(row = 3, column = 11, columnspan = 4, padx=5, pady=5)
+
+# Model Information & Explanation: 
+frame3 = LabelFrame(root, text = "Model Information & Explanation", padx = 5, pady = 5)
+frame3.grid(row = 13, column = 0, columnspan = 10, rowspan = 10, padx = 5, pady = 5)
+
+info1 = Label(frame3, text = "Selected Model Info: ")
+info1.grid(row = 13, column = 0, sticky = "w")
+
+root.mainloop()
